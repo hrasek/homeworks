@@ -47,6 +47,11 @@ if not ((cislo_textu.isdigit()) and (int(cislo_textu) - 1) in range(len(TEXTS)))
     print('Zadali jste špatné číslo, nebo jste nezadali číslo. Program bude ukončen.')
     sys.exit()
 seznam_slov = TEXTS[int(cislo_textu) - 1].lstrip('\n').split()
+# Odebírá oskočené znaky ze seznamu slov.
+diakritika = ['.',',',':',';']
+for znak in diakritika:
+    if znak in seznam_slov:
+        seznam_slov.remove(znak)
 
 pocet_slov = len(seznam_slov)
 title_case = 0
