@@ -46,12 +46,15 @@ cislo_textu = input('Zadejte číslo v rozsahu 1 až 3 k výběru odpovídajíc�
 if not ((cislo_textu.isdigit()) and (int(cislo_textu) - 1) in range(len(TEXTS))):
     print('Zadali jste špatné číslo, nebo jste nezadali číslo. Program bude ukončen.')
     sys.exit()
-seznam_slov = TEXTS[int(cislo_textu) - 1].lstrip('\n').split()
+neocisteny_seznam = TEXTS[int(cislo_textu) - 1].lstrip('\n').split()
+#print(neocisteny_seznam)
 # Odebírá oskočené znaky ze seznamu slov.
-diakritika = ['.',',',':',';']
-for znak in diakritika:
-    if znak in seznam_slov:
-        seznam_slov.remove(znak)
+# diakritika = ['.',',',':',';']
+seznam_slov = []
+for word in neocisteny_seznam:
+    ocistene_slovo = word.strip(",';:.?!@#$%&*(){}[]")
+    if ocistene_slovo !="":
+        seznam_slov.append(ocistene_slovo)
 
 pocet_slov = len(seznam_slov)
 title_case = 0
@@ -61,21 +64,22 @@ nume = 0
 suma = 0
 
 delka = dict()
+
 for slovo in seznam_slov:
-## Řešení počtu slov malým písmem atd... 
+## Řešení počtu slov malým písmem atd...
     if slovo.isdigit():
         nume += 1
         suma+=int(slovo)
     elif slovo.isupper():
 
        upper_case+=1
-       title_case+=1
+#       title_case+=1
     elif slovo.islower():
         lower_case+=1
     else:
         title_case+=1
+        
     if len(slovo) in delka.keys():
-
         delka[len(slovo)] = int(delka[len(slovo)]) + 1
 
     else:
@@ -91,11 +95,8 @@ print('Text obsahuje', lower_case, 'slov psaných malými písmeny.')
 print('Text obsahuje', nume, 'čísel.')
 print('Suma čísel v textu je', suma)
 print(30*'-')  
-print('LEN | OCCURENCES   |  NR.')
+print('{0:^3}|{1:^19}|{2:^2}'.format('LEN','OCCURENCES','NR.'))
 print(30*'-')  
 for cislo in delky:
-#    print('{:>3}|{:<4}{:<30} '.format(cislo,'*'*delka[cislo],'|' + str(delka[cislo])))
-    print((2 - (len(str(cislo)))) * ' ', cislo, '|', '*'*delka[cislo], (max(list(delka.values())) - delka[cislo]) * ' ' , '|', (2 - (len(str(delka[cislo])))) * ' ', delka[cislo])
 
-
-
+    print('{:>3}|{:19}|{:<2}'.format(cislo,'*'*delka[cislo],delka[cislo]))
