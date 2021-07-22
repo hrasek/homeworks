@@ -47,9 +47,7 @@ if not ((cislo_textu.isdigit()) and (int(cislo_textu) - 1) in range(len(TEXTS)))
     print('Zadali jste špatné číslo, nebo jste nezadali číslo. Program bude ukončen.')
     sys.exit()
 neocisteny_seznam = TEXTS[int(cislo_textu) - 1].lstrip('\n').split()
-#print(neocisteny_seznam)
-# Odebírá oskočené znaky ze seznamu slov.
-# diakritika = ['.',',',':',';']
+
 seznam_slov = []
 for word in neocisteny_seznam:
     ocistene_slovo = word.strip(",';:.?!@#$%&*(){}[]")
